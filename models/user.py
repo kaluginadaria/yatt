@@ -14,11 +14,13 @@ class User(Base):
     first_name      = Column(String)
     # safe delete flag
     is_active       = Column(Boolean, default=True)
+    #interface_lang  = Column(String)
 
     def __init__(self, username, chat_id, first_name):
         self.set_username(username)
         self.set_id(chat_id)
         self.set_first_name(first_name.capitalize())
+        #self.set_interface_lang(interface_lang)
 
     def get_id(self):
         return self.id
@@ -37,3 +39,9 @@ class User(Base):
 
     def set_first_name(self, name):
         self.first_name = name
+
+    # def get_interface_lang(self):
+    #     return  self.interface_lang
+    #
+    # def set_interface_lang(self, lang):
+    #     self.interface_lang=lang

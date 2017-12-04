@@ -12,7 +12,8 @@ from config import bot_config
 import handlers.interaction_handler
 from config.db_config import init_db
 import g
-
+from services import state_service
+from telegram.ext import CallbackQueryHandler
 
 log = logging.getLogger(__name__)
 
@@ -38,7 +39,7 @@ def init_bot():
 
     # handlers are invoked till the first match
     dispatcher.add_handler(handlers.interaction_handler.command_handler())
-
+    dispatcher.add_handler(CallbackQueryHandler(state_service.lang_button))
     # runs
     g.updater.start_polling()
     log.info('Bot has started')

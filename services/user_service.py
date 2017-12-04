@@ -29,6 +29,7 @@ def create_or_get_user(chat):
         # create new one
         username = chat.username
         first_name = chat.first_name
+        #interface_lang = chat.
         user = flush(User(username=username, chat_id=chat_id, first_name=first_name))
         saved_user = save(user)
         return saved_user

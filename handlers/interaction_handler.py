@@ -35,7 +35,8 @@ def handle(bot, update):
         curr_state = g.automata.get_state(chat.id)
         curr_context = g.automata.get_context(chat.id)
         curr_command = get_command_type(text)
-        log.info(f'curr_state: {curr_state}, curr_command: {curr_command}')
+        curr_lang = g.automata.get_lang(chat.id)
+        log.info(f'curr_state: {curr_state}, curr_command: {curr_command}, curr_lang: {curr_lang}')
 
 
         # find out state to be rendered
@@ -48,7 +49,7 @@ def handle(bot, update):
         # get state from service and render
         handler = state_service.states()[state]
         log.info(f'rendering state: {handler.__name__}')
-        handler(bot, update, curr_context)
+        handler(bot, update, curr_context, curr_lang)
 
         # update params
         log.info(f'Updating state to: {state}')
@@ -71,9 +72,9 @@ def handle(bot, update):
 
 def reply_on_unknown(bot, update):
     log.info('Replying on unknown command')
-    reply_text = 'Go fuck yourself, please'
+
     bot.send_message(chat_id=update.message.chat.id,
-                     text='error command :(',
+                     text='unknown command :(',
                      parse_mode=telegram.ParseMode.HTML)
 
 
